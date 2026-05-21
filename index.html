@@ -11,8 +11,14 @@
 
     <h1 class="text-center text-[#003478] text-3xl font-bold mb-2">Toni'Ford Product Knowledge</h1>
     
-    <div class="text-center mb-8">
+    <div class="text-center mb-8 flex flex-col items-center gap-4">
         <a href="quiz.html" class="inline-block bg-[#003478] text-white px-6 py-2 rounded-full font-bold hover:bg-blue-800 transition-colors shadow-sm">Take the Quiz</a>
+        
+        <div class="relative w-full max-w-md">
+            <input type="text" id="vehicleSearch" placeholder="Search vehicles (e.g., F-150, Bronco)..." class="w-full px-5 py-2 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-[#003478] focus:border-transparent text-gray-700">
+            <div id="searchDropdown" class="absolute z-10 w-full mt-1 bg-white rounded-md shadow-lg hidden overflow-hidden text-left border border-gray-100 max-h-60 overflow-y-auto">
+            </div>
+        </div>
     </div>
 
     <!-- Engine Specifications Reference -->
@@ -605,5 +611,227 @@
         </div>
     </details>
 
+    <!-- Bronco Sport Section -->
+    <details class="bg-white p-6 rounded-lg shadow-md mb-6">
+        <summary class="text-2xl font-bold cursor-pointer text-[#003478] hover:text-blue-800">Ford Bronco Sport® Trims</summary>
+        
+        <div class="flex flex-wrap justify-center gap-5 mt-6">
+            <!-- Big Bend -->
+            <div class="bg-gray-50 rounded-lg shadow-sm p-4 w-72">
+                <img src="https://www.ford.com/acslibs/content/dam/na/ford/en_us/images/bronco-sport/2026/jellybeans/26_frd_bros_bigb_vctb_ps34-min.png" alt="Bronco Sport Big Bend" class="w-full h-auto object-contain mb-4 rounded">
+                <h2 class="text-xl font-bold mb-1">Bronco Sport® Big Bend®</h2>
+                <div class="font-bold text-gray-900 mb-1 text-sm">Employee Pricing Starting At $29,763<sup>64</sup></div>
+                <ul class="list-disc pl-5 text-xs mt-3 space-y-1">
+                    <li><strong class="text-green-700">1.5L EcoBoost®</strong></li>
+                    <li>25 City/30 Hwy MPG</li>
+                    <li>Standard 4x4</li>
+                    <li>17 in Wheels</li>
+                    <li>7.8 in Ground Clearance</li>
+                    <li>63.6 in Front Track</li>
+                    <li>2,200 lbs Towing Capacity*</li>
+                </ul>
+            </div>
+
+            <!-- Heritage -->
+            <div class="bg-gray-50 rounded-lg shadow-sm p-4 w-72">
+                <img src="https://www.ford.com/acslibs/content/dam/na/ford/en_us/images/bronco-sport/2026/jellybeans/26_frd_bros_hrtg_rebl_ps34-min.png" alt="Bronco Sport Heritage" class="w-full h-auto object-contain mb-4 rounded">
+                <h2 class="text-xl font-bold mb-1">Bronco Sport® Heritage</h2>
+                <div class="font-bold text-gray-900 mb-1 text-sm">Employee Pricing Starting At $31,192<sup>64</sup></div>
+                <ul class="list-disc pl-5 text-xs mt-3 space-y-1">
+                    <li><strong class="text-green-700">1.5L EcoBoost®</strong></li>
+                    <li>25 City/30 Hwy MPG</li>
+                    <li>Standard 4x4</li>
+                    <li>17 in Wheels</li>
+                    <li>7.8 in Ground Clearance</li>
+                    <li>63.6 in Front Track</li>
+                </ul>
+            </div>
+
+            <!-- Outer Banks -->
+            <div class="bg-gray-50 rounded-lg shadow-sm p-4 w-72">
+                <img src="https://www.ford.com/acslibs/content/dam/na/ford/en_us/images/bronco-sport/2026/jellybeans/26_frd_bros_outb_spwh_ps34.png" alt="Bronco Sport Outer Banks" class="w-full h-auto object-contain mb-4 rounded">
+                <h2 class="text-xl font-bold mb-1">Bronco Sport® Outer Banks®</h2>
+                <div class="font-bold text-gray-900 mb-1 text-sm">Employee Pricing Starting At $31,927<sup>64</sup></div>
+                <ul class="list-disc pl-5 text-xs mt-3 space-y-1">
+                    <li><strong class="text-green-700">1.5L EcoBoost®</strong></li>
+                    <li>25 City/30 Hwy MPG</li>
+                    <li>Standard 4x4</li>
+                    <li>18 in Wheels</li>
+                    <li>7.8 in Ground Clearance</li>
+                    <li>66.9 in Front Track</li>
+                    <li>2,200 lbs Towing*</li>
+                </ul>
+            </div>
+
+            <!-- Badlands -->
+            <div class="bg-gray-50 rounded-lg shadow-sm p-4 w-72">
+                <img src="https://www.ford.com/acslibs/content/dam/na/ford/en_us/images/bronco-sport/2026/jellybeans/26_frd_bros_badl_orfy_ps34.png" alt="Bronco Sport Badlands" class="w-full h-auto object-contain mb-4 rounded">
+                <h2 class="text-xl font-bold mb-1">Bronco Sport® Badlands®</h2>
+                <div class="font-bold text-gray-900 mb-1 text-sm">Employee Pricing Starting At $34,761<sup>64</sup></div>
+                <ul class="list-disc pl-5 text-xs mt-3 space-y-1">
+                    <li><strong class="text-green-700">2.0L EcoBoost®</strong></li>
+                    <li>21 City/27 Hwy MPG</li>
+                    <li>Standard Advanced 4x4</li>
+                    <li>17 in Wheels</li>
+                    <li>8.1 in Ground Clearance</li>
+                    <li>63.9 in Front Track</li>
+                    <li>2,700 lbs Towing Capacity*</li>
+                </ul>
+            </div>
+        </div>
+    </details>
+
+    <!-- Ranger Section -->
+    <details class="bg-white p-6 rounded-lg shadow-md mb-6">
+        <summary class="text-2xl font-bold cursor-pointer text-[#003478] hover:text-blue-800">Ford Ranger® Trims</summary>
+        
+        <div class="flex flex-wrap justify-center gap-5 mt-6">
+            <!-- XL -->
+            <div class="bg-gray-50 rounded-lg shadow-sm p-4 w-72">
+                <img src="https://www.ford.com/acslibs/content/dam/na/ford/en_us/images/ranger/2026/jellybeans/26_frd_rgr_xl_stx_scc5_4x2_oxwh_ps34.png" alt="Ranger XL" class="w-full h-auto object-contain mb-4 rounded">
+                <h2 class="text-xl font-bold mb-1">Ranger® XL</h2>
+                <div class="font-bold text-gray-900 mb-1 text-sm">Employee Pricing Starting At $31,503<sup>64</sup></div>
+                <ul class="list-disc pl-5 text-xs mt-3 space-y-1">
+                    <li><strong class="text-green-700">2.3L EcoBoost® Engine</strong></li>
+                    <li>Standard 4x2 / Available 4x4</li>
+                    <li>17" black steel wheels</li>
+                    <li>9.3 in Ground Clearance</li>
+                    <li>7,500 lbs Max Towing*</li>
+                    <li>43.5 cu ft Bed Volume</li>
+                </ul>
+            </div>
+
+            <!-- XLT -->
+            <div class="bg-gray-50 rounded-lg shadow-sm p-4 w-72">
+                <img src="https://www.ford.com/acslibs/content/dam/na/ford/en_us/images/ranger/2026/jellybeans/26_frd_rgr_xlt_scc5_4x2_vctb_ps34.png" alt="Ranger XLT" class="w-full h-auto object-contain mb-4 rounded">
+                <h2 class="text-xl font-bold mb-1">Ranger® XLT</h2>
+                <div class="font-bold text-gray-900 mb-1 text-sm">Employee Pricing Starting At $33,036<sup>64</sup></div>
+                <ul class="list-disc pl-5 text-xs mt-3 space-y-1">
+                    <li><strong class="text-green-700">2.3L EcoBoost® Engine</strong></li>
+                    <li>Available 2.7L EcoBoost® Engine</li>
+                    <li>Available 4x4</li>
+                    <li>17" gray-painted aluminum wheels</li>
+                    <li>9.3 in Ground Clearance</li>
+                    <li>7,500 lbs Max Towing*</li>
+                    <li>43.5 cu ft Bed Volume</li>
+                </ul>
+            </div>
+
+            <!-- Lariat -->
+            <div class="bg-gray-50 rounded-lg shadow-sm p-4 w-72">
+                <img src="https://www.ford.com/acslibs/content/dam/na/ford/en_us/images/ranger/2026/jellybeans/26_frd_rgr_lar_sprt_4x2_crgr_ps34.png" alt="Ranger Lariat" class="w-full h-auto object-contain mb-4 rounded">
+                <h2 class="text-xl font-bold mb-1">Ranger® Lariat®</h2>
+                <div class="font-bold text-gray-900 mb-1 text-sm">Employee Pricing Starting At $40,714<sup>64</sup></div>
+                <ul class="list-disc pl-5 text-xs mt-3 space-y-1">
+                    <li><strong class="text-green-700">2.3L EcoBoost® Engine</strong></li>
+                    <li>Available 2.7L EcoBoost® Engine</li>
+                    <li>Standard 4x2 / Available 4x4</li>
+                    <li>18" Machined Aluminum Wheels</li>
+                    <li>9.3 in Ground Clearance</li>
+                    <li>7,500 lbs Max Towing*</li>
+                    <li>43.5 cu ft Bed Volume</li>
+                </ul>
+            </div>
+
+            <!-- Raptor -->
+            <div class="bg-gray-50 rounded-lg shadow-sm p-4 w-72">
+                <img src="https://www.ford.com/acslibs/content/dam/na/ford/en_us/images/ranger/2026/jellybeans/26_frd_rgr_rptr_scc5_4x4_shgn_ps34.png" alt="Ranger Raptor" class="w-full h-auto object-contain mb-4 rounded">
+                <h2 class="text-xl font-bold mb-1">Ranger® Raptor®</h2>
+                <div class="font-bold text-gray-900 mb-1 text-sm">Starting at MSRP $57,270<sup>1</sup></div>
+                <ul class="list-disc pl-5 text-xs mt-3 space-y-1">
+                    <li><strong class="text-green-700">3.0L EcoBoost® Engine</strong></li>
+                    <li>Standard 4x4</li>
+                    <li>17" Black-Painted Aluminum Wheels</li>
+                    <li>10.7 in Ground Clearance</li>
+                    <li>5,510 lbs Max Towing*</li>
+                    <li>43.5 cu ft Bed Volume</li>
+                </ul>
+            </div>
+        </div>
+    </details>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('vehicleSearch');
+            const searchDropdown = document.getElementById('searchDropdown');
+            
+            const vehicles = [];
+            document.querySelectorAll('details').forEach(details => {
+                const categoryName = details.querySelector('summary').textContent;
+                details.querySelectorAll('.bg-gray-50').forEach(card => {
+                    const nameElement = card.querySelector('h2');
+                    if (nameElement) {
+                        vehicles.push({
+                            name: nameElement.textContent,
+                            category: categoryName,
+                            element: card,
+                            detailsElement: details
+                        });
+                    }
+                });
+            });
+
+            function goToVehicle(match) {
+                match.detailsElement.open = true;
+                match.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                match.element.classList.add('ring-4', 'ring-[#003478]', 'transition-all', 'duration-500');
+                setTimeout(() => {
+                    match.element.classList.remove('ring-4', 'ring-[#003478]');
+                }, 2000);
+                searchDropdown.classList.add('hidden');
+                searchInput.value = match.name;
+            }
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                searchDropdown.innerHTML = '';
+                
+                if (query.length < 1) {
+                    searchDropdown.classList.add('hidden');
+                    return;
+                }
+
+                const matches = vehicles.filter(v => 
+                    v.name.toLowerCase().includes(query) || 
+                    v.category.toLowerCase().includes(query)
+                );
+
+                if (matches.length > 0) {
+                    searchDropdown.classList.remove('hidden');
+                    matches.forEach(match => {
+                        const item = document.createElement('div');
+                        item.className = 'px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-gray-700 border-b border-gray-100 last:border-b-0';
+                        item.textContent = match.name;
+                        item.addEventListener('click', () => {
+                            goToVehicle(match);
+                        });
+                        searchDropdown.appendChild(item);
+                    });
+                } else {
+                    searchDropdown.classList.add('hidden');
+                }
+            });
+
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    const query = e.target.value.toLowerCase().trim();
+                    const matches = vehicles.filter(v => 
+                        v.name.toLowerCase().includes(query) || 
+                        v.category.toLowerCase().includes(query)
+                    );
+                    if (matches.length > 0) {
+                        goToVehicle(matches[0]);
+                        searchInput.blur();
+                    }
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
+                    searchDropdown.classList.add('hidden');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
