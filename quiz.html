@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ford Product Knowledge Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans p-5 min-h-screen flex flex-col items-center">
+
+    <div class="w-full max-w-3xl mb-6 flex justify-between items-center mt-4">
+        <h1 class="text-[#003478] text-3xl font-bold">Ford Knowledge Quiz</h1>
+        <a href="index.html" class="text-[#003478] hover:text-blue-800 font-bold underline transition-colors">← Back to Guide</a>
+    </div>
+
+    <div id="quiz-container" class="bg-white p-8 rounded-lg shadow-md w-full max-w-3xl">
+        <div id="intro-screen" class="text-center py-8">
+            <h2 class="text-3xl font-bold mb-4 text-[#003478]">Test Your Ford Knowledge!</h2>
+            <p class="mb-8 text-gray-600 max-w-lg mx-auto">This quiz will test your knowledge on Ford engine specifications and trim levels based on the reference guide. You will get 8 random questions each time you play.</p>
+            <button id="start-btn" class="bg-[#003478] text-white px-8 py-3 rounded-full hover:bg-blue-800 font-bold text-lg transition-colors shadow-md">Start Quiz</button>
+        </div>
+
+        <div id="question-screen" class="hidden">
+            <div class="mb-6 flex justify-between text-sm text-gray-500 font-bold bg-gray-50 p-3 rounded border">
+                <span id="question-tracker">Question 1 of 8</span>
+                <span id="score-tracker" class="text-[#003478]">Score: 0</span>
+            </div>
+            <h2 id="question-text" class="text-2xl font-bold text-gray-800 mb-6 leading-tight"></h2>
+            <div id="options-container" class="flex flex-col gap-3">
+                <!-- Options will be injected here -->
+            </div>
+            <div id="feedback" class="mt-6 p-4 rounded hidden text-center text-lg"></div>
+            <button id="next-btn" class="mt-6 bg-[#003478] text-white px-6 py-3 rounded hover:bg-blue-800 font-bold hidden w-full transition-colors text-lg shadow-sm">Next Question</button>
+        </div>
+
+        <div id="result-screen" class="hidden text-center py-8">
+            <h2 class="text-3xl font-bold mb-4 text-[#003478]">Quiz Complete!</h2>
+            <p class="text-xl mb-4 text-gray-600">Your Final Score:</p>
+            <p id="final-score" class="text-6xl font-black mb-8"></p>
+            <button id="restart-btn" class="bg-[#003478] text-white px-8 py-3 rounded-full hover:bg-blue-800 font-bold transition-colors text-lg shadow-md">Play Again</button>
+        </div>
+    </div>
+
+    <script>
+        const allQuestions = [
+            // Original Questions
+            {
+                question: "What engine is standard on the Maverick Lobo?",
+                options: ["2.0L EcoBoost®", "2.5L PowerBoost® Hybrid", "2.7L V6 EcoBoost®", "3.0L EcoBoost®"],
+                answer: 0
+            },
+            {
+                question: "Which Explorer trim comes with the 3.0L EcoBoost® engine standard?",
+                options: ["Explorer Active", "Explorer ST-Line", "Explorer ST", "Explorer Platinum"],
+                answer: 2
+            },
+            {
+                question: "Which vehicle has an available 5.2L Supercharged V8?",
+                options: ["Bronco Raptor", "Expedition Tremor", "F-150 Raptor R", "Mustang Mach-E GT"],
+                answer: 2
+            },
+            {
+                question: "What is the EPA-Estimated Range for the Mustang Mach-E Premium?",
+                options: ["Up to 300 Miles", "Up to 320 Miles", "280 Miles", "255 Miles"],
+                answer: 1
+            },
+            {
+                question: "Which Bronco trim has 13.1\" Ground Clearance and a 3.0L EcoBoost® V6?",
+                options: ["Bronco Stroppe Edition", "Bronco Heritage Edition", "Bronco Badlands", "Bronco Raptor"],
+                answer: 3
+            },
+            {
+                question: "What is the standard engine for the F-150 Tremor?",
+                options: ["2.7L V6 EcoBoost®", "3.5L V6 EcoBoost®", "5.0L V8", "3.5L PowerBoost® Hybrid"],
+                answer: 1
+            },
+            {
+                question: "What is the Employee Pricing starting point for the Expedition Active?",
+                options: ["$45,310", "$57,912", "$68,509", "$75,345"],
+                answer: 1
+            },
+            {
+                question: "Which F-150 trim includes Multicontour Active Motion® seats and two-tone paint with Marsh Gray?",
+                options: ["F-150 Lariat®", "F-150 Tremor®", "F-150 King Ranch®", "F-150 Platinum®"],
+                answer: 2
+            },
+            {
+                question: "What is the max towing capacity for the Expedition Active?",
+                options: ["7,400 lbs", "9,300 lbs", "9,600 lbs", "10,200 lbs"],
+                answer: 2
+            },
+            {
+                question: "Which Bronco trim comes standard with the Sasquatch® Package and has Classic Heritage Styling?",
+                options: ["Bronco Base", "Bronco Outer Banks", "Bronco Heritage Edition", "Bronco Stroppe Edition"],
+                answer: 2
+            },
+            {
+                question: "Which Mustang Mach-E trim comes with the 91 kWh Ext-Range Battery and offers 280 Miles EPA-Est. Range?",
+                options: ["Mach-E Select", "Mach-E Premium", "Mach-E GT", "Mach-E Rally"],
+                answer: 2
+            },
+            {
+                question: "The 2.5L PowerBoost® Hybrid is standard on which Maverick trims?",
+                options: ["Lobo and Tremor", "XL, XLT, Lariat", "Only the XL", "Only the Lariat"],
+                answer: 1
+            },
+            {
+                question: "Which Explorer trim features an Off-road tuned suspension with increased ride height?",
+                options: ["Explorer Active", "Explorer ST-Line", "Explorer Tremor", "Explorer ST"],
+                answer: 2
+            },
+            {
+                question: "What is the standard engine for the Explorer Active?",
+                options: ["2.0L EcoBoost®", "2.3L EcoBoost®", "2.7L V6 EcoBoost®", "3.0L EcoBoost®"],
+                answer: 1
+            },
+            {
+                question: "Which Maverick trim features 19\" Turbofan-Styled Black Wheels?",
+                options: ["Maverick XLT", "Maverick Lobo", "Maverick Lariat", "Maverick Tremor"],
+                answer: 1
+            },
+            {
+                question: "What is the max water fording depth for the Bronco Raptor?",
+                options: ["31.5\"", "33\"", "35\"", "37\""],
+                answer: 3
+            },
+            {
+                question: "Which F-150 trim comes standard with BlueCruise hands-free highway driving equipped?",
+                options: ["F-150 XLT", "F-150 Lariat®", "F-150 Platinum®", "F-150 STX®"],
+                answer: 2
+            },
+            
+            // New Horsepower & Torque Questions
+            {
+                question: "How much horsepower and torque does the 2.0L EcoBoost® produce?",
+                options: ["238 hp / 277 lb-ft", "250 hp / 280 lb-ft", "191 hp / 155 lb-ft", "300 hp / 325 lb-ft"],
+                answer: 0
+            },
+            {
+                question: "What are the power specifications for the 2.3L EcoBoost®?",
+                options: ["238 hp / 277 lb-ft", "275 hp / 315 lb-ft", "300 hp / 325 lb-ft", "325 hp / 400 lb-ft"],
+                answer: 2
+            },
+            {
+                question: "How much horsepower and torque does the 2.5L PowerBoost® Hybrid produce?",
+                options: ["180 hp / 145 lb-ft", "191 hp / 155 lb-ft", "238 hp / 277 lb-ft", "250 hp / 175 lb-ft"],
+                answer: 1
+            },
+            {
+                question: "Which engine produces exactly 325 hp and 400 lb-ft of torque?",
+                options: ["2.3L EcoBoost®", "2.7L V6 EcoBoost®", "3.0L EcoBoost®", "3.5L V6 EcoBoost®"],
+                answer: 1
+            },
+            {
+                question: "What are the specs for the 3.0L EcoBoost®?",
+                options: ["300 hp / 325 lb-ft", "325 hp / 400 lb-ft", "400 hp / 500 lb-ft", "418 hp / 440 lb-ft"],
+                answer: 3
+            },
+            {
+                question: "How much horsepower does the standard 3.5L V6 EcoBoost® produce?",
+                options: ["325 hp", "400 hp", "430 hp", "450 hp"],
+                answer: 1
+            },
+            {
+                question: "What is the torque rating of the standard 3.5L V6 EcoBoost®?",
+                options: ["400 lb-ft", "440 lb-ft", "500 lb-ft", "510 lb-ft"],
+                answer: 2
+            },
+            {
+                question: "How much torque does the 3.5L PowerBoost® Hybrid produce?",
+                options: ["410 lb-ft", "500 lb-ft", "510 lb-ft", "570 lb-ft"],
+                answer: 3
+            },
+            {
+                question: "What are the horsepower and torque figures for the 3.5L PowerBoost® Hybrid?",
+                options: ["400 hp / 500 lb-ft", "418 hp / 440 lb-ft", "430 hp / 570 lb-ft", "450 hp / 510 lb-ft"],
+                answer: 2
+            },
+            {
+                question: "What are the specifications for the 5.0L V8?",
+                options: ["385 hp / 387 lb-ft", "400 hp / 410 lb-ft", "430 hp / 570 lb-ft", "450 hp / 510 lb-ft"],
+                answer: 1
+            },
+            {
+                question: "How much horsepower does the 3.5L High Output EcoBoost® produce?",
+                options: ["400 hp", "430 hp", "450 hp", "720 hp"],
+                answer: 2
+            },
+            {
+                question: "What is the torque output of the 3.5L High Output EcoBoost®?",
+                options: ["410 lb-ft", "500 lb-ft", "510 lb-ft", "570 lb-ft"],
+                answer: 2
+            },
+            {
+                question: "Which engine produces a massive 720 hp and 640 lb-ft of torque?",
+                options: ["3.5L High Output EcoBoost®", "5.0L V8", "5.2L Supercharged V8", "91 kWh Ext-Range Battery"],
+                answer: 2
+            },
+            {
+                question: "What are the specs for the Mustang Mach-E with the 73 kWh or 88 kWh Battery?",
+                options: ["300 hp / 400 lb-ft", "370 hp / 500 lb-ft", "400 hp / 500 lb-ft", "480 hp / 700 lb-ft"],
+                answer: 1
+            },
+            {
+                question: "How much horsepower and torque does the Mustang Mach-E with the 91 kWh Ext-Range Battery produce?",
+                options: ["370 hp / 500 lb-ft", "430 hp / 570 lb-ft", "450 hp / 510 lb-ft", "480 hp / 700 lb-ft"],
+                answer: 3
+            }
+        ];
+
+        let activeQuizData = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        const QUESTIONS_PER_ROUND = 8;
+
+        const introScreen = document.getElementById('intro-screen');
+        const questionScreen = document.getElementById('question-screen');
+        const resultScreen = document.getElementById('result-screen');
+        
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const nextBtn = document.getElementById('next-btn');
+        const feedback = document.getElementById('feedback');
+        const questionTracker = document.getElementById('question-tracker');
+        const scoreTracker = document.getElementById('score-tracker');
+        const finalScore = document.getElementById('final-score');
+
+        document.getElementById('start-btn').addEventListener('click', startQuiz);
+        document.getElementById('next-btn').addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < activeQuizData.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        });
+        document.getElementById('restart-btn').addEventListener('click', startQuiz);
+
+        // Fisher-Yates shuffle algorithm
+        function shuffleArray(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        // Shuffle the options within a question and keep track of the correct answer
+        function shuffleQuestionOptions(question) {
+            const correctAnswerText = question.options[question.answer];
+            const shuffledOptions = shuffleArray([...question.options]);
+            const newAnswerIndex = shuffledOptions.indexOf(correctAnswerText);
+            
+            return {
+                question: question.question,
+                options: shuffledOptions,
+                answer: newAnswerIndex
+            };
+        }
+
+        function startQuiz() {
+            // Shuffle all questions and pick the first N
+            const shuffledQuestions = shuffleArray([...allQuestions]);
+            activeQuizData = shuffledQuestions.slice(0, QUESTIONS_PER_ROUND).map(shuffleQuestionOptions);
+
+            currentQuestionIndex = 0;
+            score = 0;
+            
+            introScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            questionScreen.classList.remove('hidden');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            nextBtn.classList.add('hidden');
+            feedback.classList.add('hidden');
+            optionsContainer.innerHTML = '';
+            
+            const currentQuestion = activeQuizData[currentQuestionIndex];
+            questionText.textContent = currentQuestion.question;
+            questionTracker.textContent = `Question ${currentQuestionIndex + 1} of ${activeQuizData.length}`;
+            scoreTracker.textContent = `Score: ${score}`;
+
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.className = 'w-full text-left p-4 rounded-lg border-2 border-gray-200 hover:border-[#003478] hover:bg-blue-50 transition-all font-medium text-lg focus:outline-none';
+                button.addEventListener('click', () => selectAnswer(index, button));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function selectAnswer(selectedIndex, selectedButton) {
+            const currentQuestion = activeQuizData[currentQuestionIndex];
+            const buttons = optionsContainer.querySelectorAll('button');
+            
+            // Disable all buttons
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.remove('hover:border-[#003478]', 'hover:bg-blue-50', 'cursor-pointer');
+                btn.classList.add('cursor-not-allowed', 'opacity-80');
+            });
+
+            if (selectedIndex === currentQuestion.answer) {
+                selectedButton.classList.remove('border-gray-200');
+                selectedButton.classList.add('bg-green-100', 'border-green-500', 'text-green-800', 'opacity-100');
+                feedback.textContent = "Correct! Well done.";
+                feedback.className = "mt-6 p-4 rounded-lg font-bold text-green-700 bg-green-50 block border border-green-200";
+                score++;
+            } else {
+                selectedButton.classList.remove('border-gray-200');
+                selectedButton.classList.add('bg-red-50', 'border-red-400', 'text-red-700', 'opacity-100');
+                
+                // Highlight correct answer
+                const correctButton = buttons[currentQuestion.answer];
+                correctButton.classList.remove('border-gray-200', 'opacity-80');
+                correctButton.classList.add('bg-green-100', 'border-green-500', 'text-green-800', 'opacity-100');
+
+                feedback.textContent = "Incorrect. The highlighted answer is the right one.";
+                feedback.className = "mt-6 p-4 rounded-lg font-bold text-red-700 bg-red-50 block border border-red-200";
+            }
+
+            scoreTracker.textContent = `Score: ${score}`;
+            nextBtn.classList.remove('hidden');
+        }
+
+        function showResults() {
+            questionScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.textContent = `${score} / ${activeQuizData.length}`;
+            
+            let percentage = (score / activeQuizData.length) * 100;
+            if(percentage === 100) {
+                finalScore.className = 'text-6xl font-black mb-8 text-green-600';
+            } else if (percentage >= 70) {
+                finalScore.className = 'text-6xl font-black mb-8 text-blue-600';
+            } else {
+                finalScore.className = 'text-6xl font-black mb-8 text-red-600';
+            }
+        }
+    </script>
+</body>
+</html>
