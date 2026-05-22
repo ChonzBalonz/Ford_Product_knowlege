@@ -812,17 +812,17 @@
                 }
             });
 
-            searchInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    const query = e.target.value.toLowerCase().trim();
-                    const matches = vehicles.filter(v => 
-                        v.name.toLowerCase().includes(query) || 
-                        v.category.toLowerCase().includes(query)
-                    );
-                    if (matches.length > 0) {
-                        goToVehicle(matches[0]);
-                        searchInput.blur();
-                    }
+            const searchForm = document.getElementById('searchForm');
+            searchForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const query = searchInput.value.toLowerCase().trim();
+                const matches = vehicles.filter(v => 
+                    v.name.toLowerCase().includes(query) || 
+                    v.category.toLowerCase().includes(query)
+                );
+                if (matches.length > 0) {
+                    goToVehicle(matches[0]);
+                    searchInput.blur();
                 }
             });
 
@@ -832,6 +832,9 @@
                 }
             });
         });
+    </script>
+</body>
+</html>});
     </script>
 </body>
 </html>
