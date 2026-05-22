@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ford Product Knowledge Flashcards</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 3D Flip Card CSS */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans p-5 min-h-screen flex flex-col items-center">
+
+    <div class="w-full max-w-4xl mb-6 flex justify-between items-center mt-4">
+        <h1 class="text-[#003478] text-3xl font-bold">Powertrains & Trims Flashcards</h1>
+        <div class="flex gap-6">
+            <a href="quiz.html" class="text-[#003478] hover:text-blue-800 font-bold underline transition-colors">Take Quiz</a>
+            <a href="index.html" class="text-[#003478] hover:text-blue-800 font-bold underline transition-colors">← Back to Guide</a>
+        </div>
+    </div>
+
+    <div class="w-full max-w-4xl bg-white p-8 rounded-lg shadow-md flex flex-col items-center">
+        
+        <div class="w-full flex justify-center gap-4 mb-8">
+            <select id="category-filter" class="px-4 py-2 border-2 border-[#003478] rounded-lg text-[#003478] font-bold bg-white focus:outline-none cursor-pointer">
+                <option value="all">All Flashcards</option>
+                <option value="powertrains">Powertrains Only</option>
+                <option value="trims">Trim Orders Only</option>
+            </select>
+            <button id="shuffle-btn" class="bg-gray-200 text-gray-800 px-6 py-2 rounded-lg font-bold hover:bg-gray-300 transition-colors">Shuffle Deck</button>
+        </div>
+
+        <div class="w-full max-w-2xl h-80 perspective-1000 cursor-pointer group mb-8" id="flashcard-container">
+            <div id="flashcard-inner" class="relative w-full h-full transform-style-3d shadow-lg rounded-xl">
+                
+                <div class="absolute w-full h-full backface-hidden bg-white border-4 border-gray-100 rounded-xl flex flex-col justify-center items-center p-8 text-center group-hover:border-blue-100 transition-colors">
+                    <span id="card-category-front" class="absolute top-4 left-4 text-xs font-bold text-gray-400 uppercase tracking-widest"></span>
+                    <h2 id="card-front-text" class="text-3xl font-bold text-[#003478] leading-tight"></h2>
+                    <p class="absolute bottom-4 text-sm text-gray-400 font-bold">Click to flip</p>
+                </div>
+
+                <div class="absolute w-full h-full backface-hidden bg-[#003478] text-white rounded-xl flex flex-col justify-center items-center p-8 text-center rotate-y-180">
+                    <span id="card-category-back" class="absolute top-4 left-4 text-xs font-bold text-blue-300 uppercase tracking-widest"></span>
+                    <h2 id="card-back-text" class="text-2xl font-bold leading-tight"></h2>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="flex items-center gap-6 w-full max-w-2xl justify-between">
+            <button id="prev-btn" class="bg-gray-200 text-gray-800 px-6 py-3 rounded-lg font-bold hover:bg-gray-300 transition-colors flex-1">Previous</button>
+            <span id="card-counter" class="font-bold text-gray-500 w-32 text-center">1 / 10</span>
+            <button id="next-btn" class="bg-[#003478] text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-800 transition-colors flex-1 shadow-sm">Next Card</button>
+        </div>
+
+    </div>
+
+    <script>
+        const flashcardData = [
+            // Powertrains
+            { front: "1.5L EcoBoost®", back: "181 hp / 190 lb-ft torque", category: "powertrains" },
+            { front: "2.0L EcoBoost®", back: "238 hp / 277 lb-ft torque", category: "powertrains" },
+            { front: "2.3L EcoBoost®", back: "300 hp / 325 lb-ft torque", category: "powertrains" },
+            { front: "2.5L PowerBoost® Hybrid", back: "191 hp / 155 lb-ft torque", category: "powertrains" },
+            { front: "2.7L V6 EcoBoost®", back: "325 hp / 400 lb-ft torque", category: "powertrains" },
+            { front: "3.0L EcoBoost®", back: "418 hp / 440 lb-ft torque", category: "powertrains" },
+            { front: "3.5L PFDi V6", back: "275 hp / 260 lb-ft torque", category: "powertrains" },
+            { front: "3.5L V6 EcoBoost®", back: "400 hp / 500 lb-ft torque", category: "powertrains" },
+            { front: "3.5L PowerBoost® Hybrid", back: "430 hp / 570 lb-ft torque", category: "powertrains" },
+            { front: "5.0L V8", back: "400 hp / 410 lb-ft torque", category: "powertrains" },
+            { front: "3.5L High Output EcoBoost®", back: "450 hp / 510 lb-ft torque", category: "powertrains" },
+            { front: "6.8L 2V DEVCT V8 Gas", back: "405 hp / 445 lb-ft torque", category: "powertrains" },
+            { front: "7.3L 2V DEVCT V8 Gas", back: "430 hp / 485 lb-ft torque", category: "powertrains" },
+            { front: "6.7L Power Stroke® V8 Turbo Diesel", back: "475 hp / 1,050 lb-ft torque", category: "powertrains" },
+            { front: "5.2L Supercharged V8", back: "720 hp / 640 lb-ft torque", category: "powertrains" },
+            { front: "73 kWh or 88 kWh Battery (Mach-E)", back: "370 hp / 500 lb-ft torque", category: "powertrains" },
+            { front: "91 kWh Ext-Range Battery (Mach-E)", back: "480 hp / 700 lb-ft torque", category: "powertrains" },
+
+            // Trim Orders (Hierarchy)
+            { front: "Ford F-150 Trim Order", back: "XL → STX → XLT → Lariat → Tremor → King Ranch → Platinum → Raptor", category: "trims" },
+            { front: "Ford Explorer Trim Order", back: "Active 100A → Active → ST-Line → Tremor → Platinum → ST", category: "trims" },
+            { front: "Ford Expedition Trim Order", back: "Active → Platinum → Tremor → King Ranch", category: "trims" },
+            { front: "Ford Maverick Trim Order", back: "XL → XLT → Lobo → Lariat → Tremor", category: "trims" },
+            { front: "Ford Mustang Mach-E Trim Order", back: "Select → Premium → GT → Rally", category: "trims" },
+            { front: "Ford Bronco Trim Order", back: "Base → Big Bend → Outer Banks → Badlands → Heritage Edition → Stroppe Edition → Raptor", category: "trims" },
+            { front: "Ford Bronco Sport Trim Order", back: "Big Bend → Heritage → Outer Banks → Badlands", category: "trims" },
+            { front: "Ford Ranger Trim Order", back: "XL → XLT → Lariat → Raptor", category: "trims" },
+            { front: "Ford Super Duty Trim Order", back: "XL → XLT → Lariat → King Ranch → Platinum", category: "trims" }
+        ];
+
+        let activeDeck = [...flashcardData];
+        let currentIndex = 0;
+        let isFlipped = false;
+
+        const container = document.getElementById('flashcard-container');
+        const inner = document.getElementById('flashcard-inner');
+        const frontText = document.getElementById('card-front-text');
+        const backText = document.getElementById('card-back-text');
+        const frontCat = document.getElementById('card-category-front');
+        const backCat = document.getElementById('card-category-back');
+        const counter = document.getElementById('card-counter');
+        const categoryFilter = document.getElementById('category-filter');
+
+        function loadCard() {
+            if (activeDeck.length === 0) return;
+            
+            // Unflip if currently flipped
+            if (isFlipped) {
+                inner.classList.remove('rotate-y-180');
+                isFlipped = false;
+                
+                // Wait for animation before updating text
+                setTimeout(() => {
+                    updateCardContent();
+                }, 300);
+            } else {
+                updateCardContent();
+            }
+        }
+
+        function updateCardContent() {
+            const card = activeDeck[currentIndex];
+            frontText.textContent = card.front;
+            
+            // Format citation for cleaner UI display
+            let cleanBack = card.back.replace('', '');
+            backText.innerHTML = `${cleanBack} <br><span class="text-xs text-blue-300 font-normal mt-4 block">Source: Reference Guide</span>`;
+            
+            const catDisplay = card.category === 'powertrains' ? 'Powertrain Spec' : 'Trim Hierarchy';
+            frontCat.textContent = catDisplay;
+            backCat.textContent = catDisplay;
+            counter.textContent = `${currentIndex + 1} / ${activeDeck.length}`;
+        }
+
+        function shuffleArray(array) {
+            let curId = array.length;
+            while (0 !== curId) {
+                let randId = Math.floor(Math.random() * curId);
+                curId -= 1;
+                let tmp = array[curId];
+                array[curId] = array[randId];
+                array[randId] = tmp;
+            }
+            return array;
+        }
+
+        // Event Listeners
+        container.addEventListener('click', () => {
+            isFlipped = !isFlipped;
+            if (isFlipped) {
+                inner.classList.add('rotate-y-180');
+            } else {
+                inner.classList.remove('rotate-y-180');
+            }
+        });
+
+        document.getElementById('next-btn').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % activeDeck.length;
+            loadCard();
+        });
+
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + activeDeck.length) % activeDeck.length;
+            loadCard();
+        });
+
+        document.getElementById('shuffle-btn').addEventListener('click', () => {
+            activeDeck = shuffleArray(activeDeck);
+            currentIndex = 0;
+            loadCard();
+        });
+
+        categoryFilter.addEventListener('change', (e) => {
+            const filter = e.target.value;
+            if (filter === 'all') {
+                activeDeck = [...flashcardData];
+            } else {
+                activeDeck = flashcardData.filter(card => card.category === filter);
+            }
+            currentIndex = 0;
+            loadCard();
+        });
+
+        // Initialize
+        loadCard();
+    </script>
+</body>
+</html>
