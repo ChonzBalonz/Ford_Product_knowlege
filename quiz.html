@@ -43,7 +43,34 @@
 
     <script>
         const allQuestions = [
-            // Original Questions
+            // Trims Questions
+            {
+                question: "Which of the following is NOT an available trim for the Ford F-150?",
+                options: ["Lariat®", "Tremor®", "Badlands™", "Platinum®"],
+                answer: 2
+            },
+            {
+                question: "Which of the following trims is available on the Ford Explorer?",
+                options: ["Active", "Lariat", "Outer Banks", "Big Bend"],
+                answer: 0
+            },
+            {
+                question: "What are the available trims for the Ford Maverick?",
+                options: ["XL, XLT, Lariat, Tremor, Lobo", "Base, Big Bend, Outer Banks, Badlands", "Active, ST-Line, ST, Platinum", "Select, Premium, GT, Rally"],
+                answer: 0
+            },
+            {
+                question: "Which trim is considered the extreme high-performance off-road version for models like the Bronco and F-150?",
+                options: ["Tremor®", "Raptor®", "ST", "King Ranch®"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is a trim level available on the Mustang Mach-E?",
+                options: ["Rally", "Tremor", "Lobo", "Platinum"],
+                answer: 0
+            },
+
+            // Trims & Powertrains Questions
             {
                 question: "What engine is standard on the Maverick Lobo?",
                 options: ["2.0L EcoBoost®", "2.5L PowerBoost® Hybrid", "2.7L V6 EcoBoost®", "3.0L EcoBoost®"],
@@ -55,47 +82,17 @@
                 answer: 2
             },
             {
-                question: "Which vehicle has an available 5.2L Supercharged V8?",
-                options: ["Bronco Raptor", "Expedition Tremor", "F-150 Raptor R", "Mustang Mach-E GT"],
-                answer: 2
-            },
-            {
-                question: "What is the EPA-Estimated Range for the Mustang Mach-E Premium?",
-                options: ["Up to 300 Miles", "Up to 320 Miles", "280 Miles", "255 Miles"],
-                answer: 1
-            },
-            {
-                question: "Which Bronco trim has 13.1\" Ground Clearance and a 3.0L EcoBoost® V6?",
+                question: "Which Bronco trim comes standard with a 3.0L EcoBoost® V6?",
                 options: ["Bronco Stroppe Edition", "Bronco Heritage Edition", "Bronco Badlands", "Bronco Raptor"],
                 answer: 3
             },
             {
-                question: "What is the standard engine for the F-150 Tremor?",
+                question: "What is the standard engine for the F-150 Tremor®?",
                 options: ["2.7L V6 EcoBoost®", "3.5L V6 EcoBoost®", "5.0L V8", "3.5L PowerBoost® Hybrid"],
                 answer: 1
             },
             {
-                question: "What is the Employee Pricing starting point for the Expedition Active?",
-                options: ["$45,310", "$57,912", "$68,509", "$75,345"],
-                answer: 1
-            },
-            {
-                question: "Which F-150 trim includes Multicontour Active Motion® seats and two-tone paint with Marsh Gray?",
-                options: ["F-150 Lariat®", "F-150 Tremor®", "F-150 King Ranch®", "F-150 Platinum®"],
-                answer: 2
-            },
-            {
-                question: "What is the max towing capacity for the Expedition Active?",
-                options: ["7,400 lbs", "9,300 lbs", "9,600 lbs", "10,200 lbs"],
-                answer: 2
-            },
-            {
-                question: "Which Bronco trim comes standard with the Sasquatch® Package and has Classic Heritage Styling?",
-                options: ["Bronco Base", "Bronco Outer Banks", "Bronco Heritage Edition", "Bronco Stroppe Edition"],
-                answer: 2
-            },
-            {
-                question: "Which Mustang Mach-E trim comes with the 91 kWh Ext-Range Battery and offers 280 Miles EPA-Est. Range?",
+                question: "Which Mustang Mach-E trim comes with the 91 kWh Ext-Range Battery?",
                 options: ["Mach-E Select", "Mach-E Premium", "Mach-E GT", "Mach-E Rally"],
                 answer: 2
             },
@@ -105,32 +102,32 @@
                 answer: 1
             },
             {
-                question: "Which Explorer trim features an Off-road tuned suspension with increased ride height?",
-                options: ["Explorer Active", "Explorer ST-Line", "Explorer Tremor", "Explorer ST"],
-                answer: 2
-            },
-            {
                 question: "What is the standard engine for the Explorer Active?",
                 options: ["2.0L EcoBoost®", "2.3L EcoBoost®", "2.7L V6 EcoBoost®", "3.0L EcoBoost®"],
                 answer: 1
             },
             {
-                question: "Which Maverick trim features 19\" Turbofan-Styled Black Wheels?",
-                options: ["Maverick XLT", "Maverick Lobo", "Maverick Lariat", "Maverick Tremor"],
-                answer: 1
-            },
-            {
-                question: "What is the max water fording depth for the Bronco Raptor?",
-                options: ["31.5\"", "33\"", "35\"", "37\""],
+                question: "Which Bronco Sport trim comes with the 2.0L EcoBoost® engine instead of the 1.5L EcoBoost®?",
+                options: ["Big Bend", "Heritage", "Outer Banks", "Badlands"],
                 answer: 3
             },
             {
-                question: "Which F-150 trim comes standard with BlueCruise hands-free highway driving equipped?",
-                options: ["F-150 XLT", "F-150 Lariat®", "F-150 Platinum®", "F-150 STX®"],
+                question: "Which engine is standard on the Super Duty F-450 (all trims)?",
+                options: ["6.8L 2V DEVCT V8 gas", "7.3L 2V DEVCT V8 gas", "6.7L 4V OHV Power Stroke® V8 Turbo Diesel B20", "3.5L High Output EcoBoost®"],
                 answer: 2
             },
+            {
+                question: "Which engine is standard on the Super Duty F-250® and F-350® King Ranch®?",
+                options: ["6.8L 2V DEVCT V8 gas", "7.3L 2V DEVCT V8 gas", "6.7L 4V OHV Power Stroke® V8 Turbo Diesel B20", "3.5L PFDi V6"],
+                answer: 1
+            },
             
-            // New Horsepower & Torque Questions
+            // Powertrain Specs Questions
+            {
+                question: "Which vehicle has an available 5.2L Supercharged V8?",
+                options: ["Bronco Raptor", "Expedition Tremor", "F-150 Raptor R", "Mustang Mach-E GT"],
+                answer: 2
+            },
             {
                 question: "How much horsepower and torque does the 2.0L EcoBoost® produce?",
                 options: ["238 hp / 277 lb-ft", "250 hp / 280 lb-ft", "191 hp / 155 lb-ft", "300 hp / 325 lb-ft"],
@@ -205,47 +202,6 @@
                 question: "How much horsepower and torque does the Mustang Mach-E with the 91 kWh Ext-Range Battery produce?",
                 options: ["370 hp / 500 lb-ft", "430 hp / 570 lb-ft", "450 hp / 510 lb-ft", "480 hp / 700 lb-ft"],
                 answer: 3
-            },
-            // New Vehicle Questions
-            {
-                question: "What is the starting price for the Transit® Cargo Van?",
-                options: ["$45,975", "$48,400", "$58,680", "$61,655"],
-                answer: 1
-            },
-            {
-                question: "Which engine is standard on the Super Duty F-450 (all trims)?",
-                options: ["6.8L 2V DEVCT V8 gas engine", "7.3L 2V DEVCT V8 gas engine", "6.7L 4V OHV Power Stroke® V8 Turbo Diesel B20 engine", "3.5L High Output EcoBoost®"],
-                answer: 2
-            },
-            {
-                question: "Which Bronco Sport trim comes with the 2.0L EcoBoost® engine instead of the 1.5L EcoBoost®?",
-                options: ["Big Bend", "Heritage", "Outer Banks", "Badlands"],
-                answer: 3
-            },
-            {
-                question: "Which Super Duty trim level includes the Power tailgate with retractable tailgate step?",
-                options: ["F-250® XL", "F-350® XLT", "F-250® Lariat®", "F-250® Platinum®"],
-                answer: 3
-            },
-            {
-                question: "What is the max towing capacity for the F-350 Super Duty?",
-                options: ["Up to 23,000 lbs", "Up to 38,000 lbs", "Up to 40,000 lbs", "Up to 45,000 lbs"],
-                answer: 1
-            },
-            {
-                question: "Which Transit Commercial Van offers 12-15 passenger seating?",
-                options: ["Cargo Van", "Passenger Van XL", "Passenger Van XLT", "Transit Connect"],
-                answer: 1
-            },
-            {
-                question: "What is the max towing capacity for the F-450 Super Duty?",
-                options: ["Up to 23,000 lbs", "Up to 30,000 lbs", "Up to 38,000 lbs", "Up to 40,000 lbs"],
-                answer: 3
-            },
-            {
-                question: "Which engine is standard on the Super Duty F-250® and F-350® King Ranch®?",
-                options: ["6.8L 2V DEVCT V8 gas engine", "7.3L 2V DEVCT V8 gas engine", "6.7L 4V OHV Power Stroke® V8 Turbo Diesel B20 engine", "3.5L PFDi V6"],
-                answer: 1
             }
         ];
 
